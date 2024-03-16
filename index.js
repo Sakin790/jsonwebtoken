@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import { connectDB } from "./src/db/index.js";
 
 
-console.log(process.env.PORT);
 connectDB()
   .then(() => {
     app.listen(process.env.PORT || 9000, () => {
