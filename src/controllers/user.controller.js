@@ -105,4 +105,20 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { healthCheck, registerUser, loginUser };
+const allUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.find();
+    res.status(200).json({
+      message: "All User returned",
+      user,
+    });
+  } catch (error) {
+    throw new apiError(
+      404,
+      "Something went wrong while reciving all user",
+      error
+    );
+  }
+});
+
+export { healthCheck, registerUser, loginUser ,allUser };
