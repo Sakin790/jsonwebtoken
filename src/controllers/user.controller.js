@@ -2,6 +2,7 @@ import { User } from "../models/user.model.js";
 import { apiError } from "../utils/apiError.js";
 import { apiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { data } from "../data.js";
 
 const generateAccessAndRefereshTokens = async (userId) => {
   try {
@@ -121,4 +122,16 @@ const allUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { healthCheck, registerUser, loginUser ,allUser };
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    await User.deleteMany({});
+
+    return res.status(201).json({
+      message: "all user deleted",
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+export { healthCheck, registerUser, loginUser, allUser , deleteUser };
