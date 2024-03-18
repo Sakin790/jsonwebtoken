@@ -109,6 +109,9 @@ const loginUser = asyncHandler(async (req, res) => {
 const allUser = asyncHandler(async (req, res) => {
   try {
     const user = await User.find();
+    if (!user) {
+      throw new apiError(404, "No User found");
+    }
     res.status(200).json({
       message: "All User returned",
       user,
@@ -124,10 +127,11 @@ const allUser = asyncHandler(async (req, res) => {
 
 const deleteUser = asyncHandler(async (req, res) => {
   try {
-    const user = await User.deleteMany({});
+    const user = await User.find({});
     if (!user) {
       throw new apiError(404, "No User found");
     }
+    await User.deleteMany({});
     return res.status(201).json({
       message: "all user deleted",
     });
