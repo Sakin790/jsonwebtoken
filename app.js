@@ -2,7 +2,9 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+
 const app = express();
+
 
 app.use(
   cors({
@@ -21,3 +23,5 @@ import { router } from "./src/routes/user.router.js";
 app.use("/api/users/v1", router);
 //http://localhost:9090/api/users/v1/healthCheck
 export { app };
+
+
