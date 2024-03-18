@@ -134,4 +134,5 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+
 export { healthCheck, registerUser, loginUser, allUser , deleteUser };
