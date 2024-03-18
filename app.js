@@ -1,11 +1,10 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import morgan from "morgan";
 
 const app = express();
-
-
+app.use(morgan("dev"));
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
@@ -23,5 +22,3 @@ import { router } from "./src/routes/user.router.js";
 app.use("/api/users/v1", router);
 //http://localhost:9090/api/users/v1/healthCheck
 export { app };
-
-

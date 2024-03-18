@@ -13,6 +13,6 @@ router.route("/healthCheck").get(healthCheck);
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/users").get(allUser);
-router.route("/delete").get(deleteUser);
+router.route("/delete").delete(deleteUser);
 
 export { router };

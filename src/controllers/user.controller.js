@@ -124,15 +124,16 @@ const allUser = asyncHandler(async (req, res) => {
 
 const deleteUser = asyncHandler(async (req, res) => {
   try {
-    await User.deleteMany({});
-
+    const user = await User.deleteMany({});
+    if (!user) {
+      throw new apiError(404, "No User found");
+    }
     return res.status(201).json({
       message: "all user deleted",
     });
   } catch (err) {
-    next(err);
+    throw new apiError(404, "Something went wrong");
   }
 });
 
-
-export { healthCheck, registerUser, loginUser, allUser , deleteUser };
+export { healthCheck, registerUser, loginUser, allUser, deleteUser };
