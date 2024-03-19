@@ -106,6 +106,33 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
+const logoutUser = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: {
+        refreshToken: 1,
+      },
+    },
+    /*Return new value korbe , jodi old value kore tahole toh oknae
+    token thekei jacche , muloto token ta remove korte chacchi */
+    {
+      new: true,
+    }
+  );
+  /*Sudhu server theke access korar jabe */
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new apiResponse(200, {}, "User logged Out"));
+});
+
 const allUser = asyncHandler(async (req, res) => {
   try {
     const user = await User.find();
@@ -140,4 +167,4 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { healthCheck, registerUser, loginUser, allUser, deleteUser };
+export {logoutUser, healthCheck, registerUser, loginUser, allUser, deleteUser };
